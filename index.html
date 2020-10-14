@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load CID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        a.waves-effect.waves-light.btn {
+            display: flex;
+            justify-content: center;
+            margin: 20px
+        }
+
+        iframe {
+            border: none;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">InstaCID</a>
+        </div>
+    </nav>
+
+
+    <a onclick="add()" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Another CID</a>
+    <a onclick="load()" class="waves-effect waves-light btn"><i class="material-icons right">assignment_returned</i>
+        Load</a>
+
+    <div id="hostI"></div>
+    <div id="hostF"></div>
+
+
+    <template id="templateFrame">
+        <iframe src=""></iframe>
+    </template>
+
+    <template id="templateInput">
+        <input type="text" placeholder="Enter CID here">
+    </template>
+
+    <script>
+        var id = 0
+
+        function addFrame() {
+            var templateInput = document.querySelector('#templateFrame');
+            var cloneF = document.importNode(templateFrame.content, true);
+            var hostF = document.querySelector('#hostF');
+            cloneF.querySelector("iframe").id = `f${id}`
+            hostF.appendChild(cloneF);
+        }
+
+        function add() {
+            var templateInput = document.querySelector('#templateInput');
+            var clone = document.importNode(templateInput.content, true);
+
+            clone.querySelector("input").id = `i${id}`
+            var hostI = document.querySelector('#hostI');
+            hostI.appendChild(clone);
+            addFrame()
+            id++
+        }
+        add()
+
+        function load() {
+            iframes = document.querySelectorAll("iframe")
+            var count = 0
+            for (iframe of iframes) {
+                iframe.src = document.querySelector(`#i${count}`).value;
+
+
+                count++
+            }
+        }
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
+</body>
+
+</html>
