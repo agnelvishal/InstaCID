@@ -76,7 +76,7 @@
             iframes = document.querySelectorAll("iframe")
             var count = 0
             for (iframe of iframes) {
-                iframe.src = document.querySelector(`#i${count}`).value;
+                iframe.src = `https://gateway.pinata.cloud/ipfs/` +document.querySelector(`#i${count}`).value;
 
 
                 count++
