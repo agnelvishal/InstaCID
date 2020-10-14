@@ -12,14 +12,10 @@
         a.waves-effect.waves-light.btn {
             display: flex;
             justify-content: center;
-            margin: 20px
+            margin: 20px;
         }
 
-        iframe {
-            border: none;
-            width: 100%;
-            height: 400px;
-        }
+
     </style>
 
 </head>
@@ -38,12 +34,6 @@
         Load</a>
 
     <div id="hostI"></div>
-    <div id="hostF"></div>
-
-
-    <template id="templateFrame">
-        <iframe src=""></iframe>
-    </template>
 
     <template id="templateInput">
         <input type="text" placeholder="Enter CID here">
@@ -51,14 +41,8 @@
 
     <script>
         var id = 0
+        var iframes = []
 
-        function addFrame() {
-            var templateInput = document.querySelector('#templateFrame');
-            var cloneF = document.importNode(templateFrame.content, true);
-            var hostF = document.querySelector('#hostF');
-            cloneF.querySelector("iframe").id = `f${id}`
-            hostF.appendChild(cloneF);
-        }
 
         function add() {
             var templateInput = document.querySelector('#templateInput');
@@ -67,21 +51,31 @@
             clone.querySelector("input").id = `i${id}`
             var hostI = document.querySelector('#hostI');
             hostI.appendChild(clone);
-            addFrame()
+
             id++
         }
         add()
 
         function load() {
-            iframes = document.querySelectorAll("iframe")
-            var count = 0
-            for (iframe of iframes) {
-                iframe.src = `https://gateway.pinata.cloud/ipfs/` +document.querySelector(`#i${count}`).value;
-
+            var url = new URL("https://gateway.pinata.cloud/ipfs/"+"QmcyYeQfjm2QLZsrvhhE62gTSVHUWdvA7HrpPvgBCUr4oP");
+count=0
+            inputs = document.querySelectorAll("input")
+            for (input of inputs) {
+                url.searchParams.append('CIDs', input.value);
 
                 count++
             }
+console.log(url);
+location.href = url.href
+
+
         }
+    </script>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams.getAll('CID'));
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

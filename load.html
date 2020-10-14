@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load CID</title>
+
+    <style>
+
+iframe {
+        border: none;
+        width: 100%;
+        height: 400px;
+        margin: 20px 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    </style>
+   
+</head>
+
+<body>
+    <div id="hostF"></div>
+
+
+    <template id="templateFrame">
+        <iframe src=""></iframe>
+    </template>
+
+
+    <script>
+        var id = 0
+        function addFrame(CID) {
+            var templateInput = document.querySelector('#templateFrame');
+            var cloneF = document.importNode(templateFrame.content, true);
+            var hostF = document.querySelector('#hostF');
+            cloneF.querySelector("iframe").id = `f${id}`
+            hostF.appendChild(cloneF);
+            load(CID)
+            id++
+        }
+
+        function load(CID) {
+            iframes = document.querySelectorAll("iframe")
+            var count = 0
+            for (iframe of iframes) {
+                iframe.src = `https://gateway.pinata.cloud/ipfs/` + CID;
+
+                count++
+            }
+        }
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        CIDs = urlParams.getAll('CIDs')
+        console.log();
+        for (CID of CIDs) {
+            addFrame(CID)
+        }
+
+    </script>
+
+
+</body>
+
+</html>
